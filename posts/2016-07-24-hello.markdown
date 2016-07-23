@@ -1,0 +1,6 @@
+---
+title: Hello World?
+---
+
+This is my blog. This _is_ my blog. It sounds strange somehow. Aside from that I'm
+filled with excitement and thrill of adventure. Check back here for new posts in a bit!
