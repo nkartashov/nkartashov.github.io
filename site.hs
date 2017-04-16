@@ -18,7 +18,7 @@ main = hakyll $ do
     match (fromList ["about.rst", "contact.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= loadAndApplyTemplate "templates/default.html" blogContext
             >>= relativizeUrls
 
     match "posts/*" $ do
@@ -35,7 +35,7 @@ main = hakyll $ do
             let archiveCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Archives"            `mappend`
-                    defaultContext
+                    blogContext
 
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -50,7 +50,7 @@ main = hakyll $ do
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Home"                `mappend`
-                    defaultContext
+                    blogContext
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -61,7 +61,12 @@ main = hakyll $ do
 
 
 --------------------------------------------------------------------------------
+blogContext :: Context String
+blogContext =
+    constField "blogName" "Life and Code" `mappend`
+    defaultContext
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
-    defaultContext
+    blogContext
