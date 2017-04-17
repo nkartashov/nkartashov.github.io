@@ -1,5 +1,6 @@
 ---
 title: Long time no see & Environment Deployment Automation
+tags: life, code
 ---
 
 So after around nine months of nothingness I decided that it is the time to bring back my blog.
@@ -11,7 +12,7 @@ of programs installed. A couple of days before, I did a fresh install of macOS S
 Obviously, in both these cases I lost all of my customization and programs that I amassed over the years.
 This brings me to today's topic - Environment Deployment Automation.
 
-_Disclaimer_: I am talking about a developer environment for work and play, not about production environments.
+_Disclaimer:_ I am talking about a developer environment for work and play, not about production environments.
 In a better world, a better Nikita would have already written the scripts for installing basic programs and adding
 needed configurations, but because we live in the real world I formulated my approach to environment deployment automation as follows: 
 **one should be able to reproduce 80% of the current system setup with one script and be able to reproduce the rest with a day of googling**.

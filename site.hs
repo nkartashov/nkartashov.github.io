@@ -21,11 +21,16 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" blogContext
             >>= relativizeUrls
 
+    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+    buildTagPages tags
+    let taggedCtx = postCtxWithTags tags
+
+
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= loadAndApplyTemplate "templates/post.html"    taggedCtx
+            >>= loadAndApplyTemplate "templates/default.html" taggedCtx
             >>= relativizeUrls
 
     create ["archive.html"] $ do
@@ -61,6 +66,23 @@ main = hakyll $ do
 
 
 --------------------------------------------------------------------------------
+
+buildTagPages :: Tags -> Rules ()
+buildTagPages tags =
+    tagsRules tags $ \tag pattern -> do
+        let title = "Posts tagged \"" ++ tag ++ "\""
+        route idRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll pattern
+            let ctx = constField "title" title
+                      `mappend` listField "posts" postCtx (return posts)
+                      `mappend` blogContext
+
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/tag.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx
+                >>= relativizeUrls
+
 blogContext :: Context String
 blogContext =
     constField "blogName" "Life and Code" `mappend`
@@ -70,3 +92,6 @@ postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     blogContext
+
+postCtxWithTags :: Tags -> Context String
+postCtxWithTags = (postCtx `mappend`) . tagsField "tags"  

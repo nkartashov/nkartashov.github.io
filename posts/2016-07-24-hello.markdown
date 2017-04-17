@@ -1,5 +1,6 @@
 ---
 title: Hello World?
+tags: hello world, life, code
 ---
 
 This is my blog. This _is_ my blog. It sounds strange somehow. Aside from that I'm
