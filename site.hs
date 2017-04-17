@@ -21,10 +21,10 @@ main = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" blogContext
             >>= relativizeUrls
 
-    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
-    buildTagPages tags
+    tags <- buildTags "posts/*" $ fromCapture "tags/*.html"
     let taggedCtx = postCtxWithTags tags
 
+    buildTagPages tags
 
     match "posts/*" $ do
         route $ setExtension "html"
