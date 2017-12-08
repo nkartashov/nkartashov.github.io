@@ -54,3 +54,25 @@ div.info {
     font-size: 14px;
     font-style: italic;
 }
+
+.social-accounts {
+  margin: 0 auto 0 auto;
+}
+
+.social-accounts ul {
+  margin: 5px 0 0 0;
+  text-align: center;
+}
+
+.social-accounts ul li {
+  display: inline;
+}
+
+.social-accounts ul li a {
+  text-decoration: none;
+}
+
+.social-accounts ul li img {
+  width: 30px;
+  height: 30px;
+}
