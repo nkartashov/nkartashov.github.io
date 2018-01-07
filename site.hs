@@ -110,4 +110,4 @@ postCtx =
     blogCtx
 
 postCtxWithTags :: Tags -> Context String
-postCtxWithTags = (postCtx `mappend`) . tagsField "tags"  
+postCtxWithTags tags = tagsField "tags" tags `mappend` postCtx
