@@ -1,2 +1,6 @@
 #!/bin/sh
-stack build && stack exec site build
+set -euo pipefail
+
+stack build
+stack exec site build
+cp CNAME _site
