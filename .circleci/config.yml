@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    branches:
+      ignore:
+        - master
+    docker:
+      - image: haskell:8.6.3
+    steps:
+      - checkout
+      - run:
+          name: Rebuild site
+          command: ./scripts/build.sh
