@@ -19,12 +19,6 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    match (fromList ["about.rst"]) $ do
-        route   $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" blogCtx
-            >>= relativizeUrls
-
     tags <- buildTags "posts/*" $ fromCapture "tags/*.html"
     let taggedCtx = postCtxWithTags tags
 
@@ -51,12 +45,12 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-    create ["contact.html"] $ do
+    create ["about.html"] $ do
         route idRoute
         compile $ do
             makeItem ""
-                >>= loadAndApplyTemplate "templates/contact.html" contactCtx
-                >>= loadAndApplyTemplate "templates/default.html" contactCtx
+                >>= loadAndApplyTemplate "templates/about.html" aboutContext
+                >>= loadAndApplyTemplate "templates/default.html" aboutContext
                 >>= relativizeUrls
 
     match "index.html" $ do
@@ -99,9 +93,9 @@ blogCtx =
     constField "blogName" "Life and Code" `mappend`
     defaultContext
 
-contactCtx :: Context String
-contactCtx =
-    constField "title" "Contact" `mappend`
+aboutContext :: Context String
+aboutContext =
+    constField "title" "About" `mappend`
     blogCtx
 
 postCtx :: Context String
